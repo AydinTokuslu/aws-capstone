@@ -236,6 +236,15 @@ Configure Security Group
     - Select an existing security group: aws_capstone_NAT_Sec_Group
 Review and select our own pem key
 ```
+ ######################################
+ !!!IMPORTANT!!!
+
+sistemde nat-instance çıkmıyor, aws sıcak bakmıyor.onun yerine cli ile nat-instance oluşturucaz.
+örnek cli komutu:
+aws ec2 run-instances --image-id ami-0aa210fd2121a98b7 --instance-type t2.micro --key-name mykey --security-group-ids sg-013c498a163ace9df --subnet-id subnet-0d8b30f4c96fce24a
+
+######################################
+
 
 !!!IMPORTANT!!!
 
@@ -280,14 +289,20 @@ Advance Details:
 apt-get update -y
 apt-get install git -y
 apt-get install python3 -y
-cd /home/ubuntu/
-TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-git clone https://$TOKEN@<YOUR PRIVATE REPO URL>
-cd /home/ubuntu/<YOUR PRIVATE REPO NAME>
 apt install python3-pip -y
-apt-get install python3.7-dev default-libmysqlclient-dev -y
+apt install awscli -y
+cd /home/ubuntu/
+#TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+TOKEN=$(aws --region=us-east-1 ssm get-parameter --name /aydin/capstone/token --with-decryption --query 'Parameter.Value' --output text)
+#git clone https://$TOKEN@<YOUR PRIVATE REPO URL>
+git clone https://$TOKEN@github.com/AydinTokuslu/aws-capstone.git
+#cd /home/ubuntu/<YOUR PRIVATE REPO NAME>
+cd /home/ubuntu/aws-capstone
+apt-get install python3.10-dev default-libmysqlclient-dev -y
+#apt-get install default-libmysqlclient-dev -y
 pip3 install -r requirements.txt
-cd /home/ubuntu/<YOUR PRIVATE REPO NAME>/src
+cd /home/ubuntu/aws-capstone/src
+#cd /home/ubuntu/<YOUR PRIVATE REPO NAME>/src
 python3 manage.py collectstatic --noinput
 python3 manage.py makemigrations
 python3 manage.py migrate
