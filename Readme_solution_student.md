@@ -286,6 +286,8 @@ Advance Details:
     - Termination protection        : Enable
     - User Data
 #!/bin/bash
+
+sudo su #terminalde yazarız.
 apt-get update -y
 apt-get install git -y
 apt-get install python3 -y
