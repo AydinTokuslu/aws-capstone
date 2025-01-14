@@ -271,6 +271,18 @@ ssh ec2-user@<Private IP of web server>  (in NAT instance)
 You are in the private EC2 instance
 <<<
 
+<<< test
+#sistemin çalışıp çalışmadığını kontrol için rastgele bir ubuntu instance ayağa kaldırılır ama public subnet üzerinde deneriz, 
+private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için.
+ubuntuya rolü de atarız.
+instance'a bağlanınca sudo su yazıp diğer komutları (312-333) sırayla çalıştırırız.
+sonra hepsi bitince public ip'yi konsolda açlıştırır ve blog sayfasını görürüz.
+blog sayfasında kayıt olur ve sonra jpg'li post yapıştırırız.
+tüm eklemeleri s3 bucket içinde de görürüz.
+sistem çalıştıysa o zaman launch template oluştururuz.
+<<<
+
+
 ## Step 10: Create Launch Template and IAM role for it
 
 Go to the IAM role console click role on the right hand menu than create role
