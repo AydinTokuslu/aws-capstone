@@ -240,8 +240,12 @@ Review and select our own pem key
  !!!IMPORTANT!!!
 
 sistemde nat-instance çıkmıyor, aws sıcak bakmıyor.onun yerine cli ile nat-instance oluşturucaz.
+
+!!!!!!!security-group-ids ile subnet-id değişecek!!!!!! 
+
 örnek cli komutu:
-aws ec2 run-instances --image-id ami-0aa210fd2121a98b7 --instance-type t2.micro --key-name mykey --security-group-ids sg-013c498a163ace9df --subnet-id subnet-0d8b30f4c96fce24a
+aws ec2 run-instances --image-id ami-0aa210fd2121a98b7 --instance-type t2.micro --key-name mykey --security-group-ids sg-0e26dc8f3589cef3e --subnet-id subnet-0bf512f4c337e301c
+
 
 ######################################
 
@@ -256,6 +260,16 @@ Destination : 0.0.0.0/0
 Target      : instance ---> Select NAT Instance
 Save
 ```
+
+
+<<< bash
+eval $(ssh-agent) (your local)
+ssh-add xxxxxxxxxx.pem   (your local )
+ssh -A ec2-user@<Public IP or DNS name of NAT instance> (your local)
+ssh ubuntu@<Private IP of web server>  (in NAT instance)
+ssh ec2-user@<Private IP of web server>  (in NAT instance)
+You are in the private EC2 instance
+<<<
 
 ## Step 10: Create Launch Template and IAM role for it
 
