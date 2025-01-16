@@ -159,7 +159,12 @@ Object Ownership
 Block Public Access settings for this bucket
 Block all public access : Unchecked
 Please keep other settings as are
+
 ```
+<!--
+Bucket Name : capstone.clarusway.us'ı public açarız, hosting'i açıp, policy yapıştırırırz.
+içine index.html ve sorry.jpg'yi de ekleriz ki siteye ulaşılamadığında sorry uyarısı çıksın.
+-->
 
 - create bucket
 
@@ -262,16 +267,16 @@ Save
 ```
 
 
-<<< bash
+<!-- bash
 eval $(ssh-agent) (your local)
 ssh-add xxxxxxxxxx.pem   (your local )
 ssh -A ec2-user@<Public IP or DNS name of NAT instance> (your local)
 ssh ubuntu@<Private IP of web server>  (in NAT instance)
 ssh ec2-user@<Private IP of web server>  (in NAT instance)
 You are in the private EC2 instance
-<<<
+-->
 
-<<< test
+<!-- test (bir tane ec2'yu çalışıp çalışmadığı için test ederiz.)
 #sistemin çalışıp çalışmadığını kontrol için rastgele bir ubuntu instance ayağa kaldırılır ama public subnet üzerinde deneriz, 
 private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için.
 ubuntuya rolü de atarız.
@@ -280,7 +285,7 @@ sonra hepsi bitince public ip'yi konsolda açlıştırır ve blog sayfasını g�
 blog sayfasında kayıt olur ve sonra jpg'li post yapıştırırız.
 tüm eklemeleri s3 bucket içinde de görürüz.
 sistem çalıştıysa o zaman launch template oluştururuz.
-<<<
+-->
 
 
 ## Step 10: Create Launch Template and IAM role for it
@@ -411,6 +416,13 @@ select HTTP: 80 rule ---> click edit
 
 Lets go ahead and look at our ALB DNS --> it going to say "it is not safe", however, it will be fixed after connect ALB to our DNS with Route 53
 
+<!--
+auto-scaling oluşturduğu/ayağa kaldırdığı ec2'ları target group üzerinden ELoad Balancer'a göndericek.
+ELoadBalancer target group üzerinden gelen ec2'ları yöneticek.
+auto-scaling ile ELB ortak noktası Target group'tur.
+auto-scaling private subnet'ler üzerinde ec2'ları oluşturucak.
+-->
+
 ## Step 13: Create Autoscaling Group with Launch Template
 
 Go to the Autoscaling Group on the left hand side menu. Click create Autoscaling group.
@@ -464,6 +476,9 @@ Create new Notification
         - with these recipients     : serdar@clarusway.com
         - event type                : select all
 ```
+
+
+
 
 <!-- WARNING!!! Sometimes your EC2 has a problem after you create autoscaling group, If you need to look inside one of your instance to make sure where the problem is, please follow these steps...
 
@@ -684,8 +699,13 @@ def lambda_handler(event, context):
 
     return "Lambda success"
 ```
+<!--
+sonra "General configuration" bölümünden "timeout" 30 saniye olarak düzenlenmelidir, normalde 3sn yaziyor, 
+yeterli değil, ayağa kalkması için çok kısa süre.
+-->
 
-- Click deploy and all set. go to the website and add a new post with photo, then control if their record is written on DynamoDB.
+
+- Click deploy and all set. go to the website and add a new post with photo, then control if their record is written on DynamoDB (icine tiklayinca Explore Tables bölümüne tiklayinca eklenen dosyayi goruruz).
 
 - WE ALL SET
 
