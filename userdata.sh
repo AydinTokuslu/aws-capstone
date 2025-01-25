@@ -6,7 +6,7 @@ apt-get install python3 -y
 apt install python3-pip -y
 apt install awscli -y
 cd /home/ubuntu/
-#TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 TOKEN=$(aws --region=us-east-1 ssm get-parameter --name /aydin/capstone/token --with-decryption --query 'Parameter.Value' --output text)
 #git clone https://$TOKEN@<YOUR PRIVATE REPO URL>
 git clone https://$TOKEN@github.com/AydinTokuslu/aws-capstone.git
