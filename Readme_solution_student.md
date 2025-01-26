@@ -281,7 +281,7 @@ You are in the private EC2 instance
 private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için.
 ubuntuya rolü de atarız.
 instance'a bağlanınca sudo su yazıp diğer komutları (312-333) sırayla çalıştırırız.
-sonra hepsi bitince public ip'yi konsolda açlıştırır ve blog sayfasını görürüz.
+sonra hepsi bitince public ip'yi konsolda çalıştırır ve blog sayfasını görürüz.
 blog sayfasında kayıt olur ve sonra jpg'li post yapıştırırız.
 tüm eklemeleri s3 bucket içinde de görürüz.
 sistem çalıştıysa o zaman launch template oluştururuz.
