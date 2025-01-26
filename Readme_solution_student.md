@@ -69,9 +69,9 @@ The Clarusway Blog Page Application aims to deploy blog application as a web app
    Name : aws_capstone_RDS_Sec_Group
    Description : RDS Security Groups only allows traffic coming from aws_capstone_EC2_Sec_Group Security Groups for MYSQL/Aurora port.
 
-VPC : AWS_Capstone_VPC
-Inbound Rules
-MYSQL/Aurora(3306) ----> aws_capstone_EC2_Sec_Group
+   VPC : AWS_Capstone_VPC
+   Inbound Rules
+   MYSQL/Aurora(3306) ----> aws_capstone_EC2_Sec_Group
 
 4. NAT Instance Security Group
    Name : aws_capstone_NAT_Sec_Group
@@ -162,7 +162,7 @@ Please keep other settings as are
 
 ```
 <!--
-Bucket Name : capstone.clarusway.us'ı public açarız, hosting'i açıp, policy yapıştırırırz.
+Bucket Name : capstone.clarusway.us (capstone.devopsaydintokuslu.de)'ı public açarız, hosting'i açıp, policy yapıştırırırz.
 içine index.html ve sorry.jpg'yi de ekleriz ki siteye ulaşılamadığında sorry uyarısı çıksın.
 -->
 
