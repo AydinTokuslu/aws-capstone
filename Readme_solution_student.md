@@ -191,8 +191,12 @@ Please
 ```bash
 #!/bin/bash
 apt-get update -y
+apt-get upgrade -y
 apt-get install git -y
 apt-get install python3 -y
+apt install python3-pip -y
+pip3 install boto3
+apt install awscli -y
 cd /home/ubuntu/
 TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 git clone https://$TOKEN@<YOUR PRIVATE REPO URL>
@@ -252,6 +256,10 @@ sistemde nat-instance çıkmıyor, aws sıcak bakmıyor.onun yerine cli ile nat-
 aws ec2 run-instances --image-id ami-0aa210fd2121a98b7 --instance-type t2.micro --key-name mykey --security-group-ids sg-0e26dc8f3589cef3e --subnet-id subnet-0bf512f4c337e301c
 
 
+sonra üzerinde değişiklik yapıcaz.
+nat-instance olarak başkalarının paketlerini taşıyacağı için kendi paket taşımasını durdururuz.  yani paketin adresi sen misin değilmisin bunları kontrol etmeyi bırak, gelen paketi hedefe taşı, ne geliyorsa gönder gitsin.
+instance ===> actions ===> Networking ===> Change Source / destination check ===> Stop'u tikleriz.
+
 ######################################
 
 
@@ -276,16 +284,25 @@ ssh ec2-user@<Private IP of web server>  (in NAT instance)
 You are in the private EC2 instance
 -->
 
-<!-- test (bir tane ec2'yu çalışıp çalışmadığı için test ederiz.)
-#sistemin çalışıp çalışmadığını kontrol için rastgele bir ubuntu instance ayağa kaldırılır ama public subnet üzerinde deneriz, 
-private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için.
-ubuntuya rolü de atarız.
-instance'a bağlanınca sudo su yazıp diğer komutları (312-333) sırayla çalıştırırız.
+<!-- test (bir tane deneme ec2 ile nat-instance'a ulaşıp ulaşamadığımızı görmek için test ederiz. Bunun için bir linux instance ayağa kaldırılır, capstone-vpc ve private 1a subnet seçilir.
+security group için  rds hariç hepsini seçeriz.
+- capstone_EC2_Sec_Group
+- capstone_NAT_Sec_Group
+- capstone_ALB_Sec_Group
+
+eval $(ssh-agent) ile nat-instance üzerinden deneme instance'a bağlanırız ve private subnete bağlandığımızı görürüz.
+
+userdatayı test etmek için: 
+deneme bir ubuntu instance ayağa kaldırırız, capstone vpc ve 1a public subnet seçilir. buna role s3-ssm rolü atanır ve userdata eklenmeden ayağa kaldırılır.
+bu instance'a direkt connect ile bağlanırız.
+private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için, direkt public subnet üzerinde deneme instance ayağa kaldırılır.
+instance'a bağlanınca sudo su yazıp diğer komutları (338-361) userdata komutları sırayla çalıştırırız.
 sonra hepsi bitince public ip'yi konsolda çalıştırır ve blog sayfasını görürüz.
 blog sayfasında kayıt olur ve sonra jpg'li post yapıştırırız.
 tüm eklemeleri s3 bucket içinde de görürüz.
 sistem çalıştıysa o zaman launch template oluştururuz.
 -->
+
 
 
 ## Step 10: Create Launch Template and IAM role for it
@@ -320,9 +337,11 @@ Advance Details:
 
 sudo su #terminalde yazarız.
 apt-get update -y
+apt-get upgrade -y
 apt-get install git -y
 apt-get install python3 -y
 apt install python3-pip -y
+pip3 install boto3
 apt install awscli -y
 cd /home/ubuntu/
 #TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -477,10 +496,11 @@ Create new Notification
         - event type                : select all
 ```
 
+<!-- 
+blog sayfasının gelip gelmediğini görmek için instance'ların healty olduğunu gördükten sonra
+ALB DNS'i alıp browser'a yapıştırırz ve blog sayfasının geldiğini görürüz.
 
-
-
-<!-- WARNING!!! Sometimes your EC2 has a problem after you create autoscaling group, If you need to look inside one of your instance to make sure where the problem is, please follow these steps...
+WARNING!!! Sometimes your EC2 has a problem after you create autoscaling group, If you need to look inside one of your instance to make sure where the problem is, please follow these steps...
 
 ```bash
 eval $(ssh-agent) (your local)
