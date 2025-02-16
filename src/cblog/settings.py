@@ -96,16 +96,16 @@ def get_ssm_parameters():
     return username, password
 
 #SSM put
-db_username, db_password = get_ssm_parameters()
+#db_username, db_password = get_ssm_parameters()
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'database1', # database name in RDS is written here
-        #'USER': 'admin', # database master username in RDS is written here
-        'USER': db_username, # database master username in RDS is written here
-        #'PASSWORD': config('PASSWORD'),
-        'PASSWORD': db_password,
+        'USER': 'admin', # database master username in RDS is written here
+        #'USER': db_username, # database master username in RDS is written here
+        'PASSWORD': config('PASSWORD'),
+        #'PASSWORD': db_password,
         'HOST': 'capstone-rds.chaew8ekeb35.us-east-1.rds.amazonaws.com',  # database endpoint is written here
         'PORT': '3306' # database port is written here
     }

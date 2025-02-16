@@ -279,25 +279,28 @@ Save
 eval $(ssh-agent) (your local)
 ssh-add xxxxxxxxxx.pem   (your local )
 ssh -A ec2-user@<Public IP or DNS name of NAT instance> (your local)
-ssh ubuntu@<Private IP of web server>  (in NAT instance)
-ssh ec2-user@<Private IP of web server>  (in NAT instance)
+ssh ubuntu@<Private IP of test web server>  (in NAT instance)
+ssh ec2-user@<Private IP of test web server>  (in NAT instance)
 You are in the private EC2 instance
+curl www.google.com yapıp içerik gelip gelmediğini görürüz
 -->
 
-<!-- test (bir tane deneme ec2 ile nat-instance'a ulaşıp ulaşamadığımızı görmek için test ederiz. Bunun için bir linux instance ayağa kaldırılır, capstone-vpc ve private 1a subnet seçilir.
+<!-- 1nci test (bir tane deneme linux ec2 ile nat-instance'a ulaşıp ulaşamadığımızı görmek için test ederiz. Bunun için bir linux instance ayağa kaldırılır, capstone-vpc ve private 1a subnet seçilir.
 security group için  rds hariç hepsini seçeriz.
 - capstone_EC2_Sec_Group
 - capstone_NAT_Sec_Group
 - capstone_ALB_Sec_Group
 
 eval $(ssh-agent) ile nat-instance üzerinden deneme instance'a bağlanırız ve private subnete bağlandığımızı görürüz.
+private instance içinde curl www.google.com yapıp, içerik gelip gelmediğini görürüz. geliyırsa çalışıyordur.
 
 
+2nci test olarak bir public ubuntu instance ayağa kaldırırız ki diğer servislere bağlanıp bağlanamadığımızı görürürüz. 
+private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için, direkt public subnet üzerinde deneme instance ayağa kaldırılır.
 userdatayı test etmek için: 
 deneme bir ubuntu instance ayağa kaldırırız, capstone vpc ve 1a public subnet seçilir. buna role s3-ssm rolü atanır ve userdata eklenmeden ayağa kaldırılır.
 bu instance'a direkt connect ile bağlanırız.
-private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için, direkt public subnet üzerinde deneme instance ayağa kaldırılır.
-instance'a bağlanınca sudo su yazıp diğer komutları (338-361) userdata komutları sırayla çalıştırırız.
+instance'a bağlanınca sudo su yazıp userdata'nın diğer komutları (342-365) sırayla çalıştırırız.
 sonra hepsi bitince public ip'yi konsolda çalıştırır ve blog sayfasını görürüz.
 blog sayfasında kayıt olur ve sonra jpg'li post yapıştırırız.
 tüm eklemeleri s3 bucket içinde de görürüz.
