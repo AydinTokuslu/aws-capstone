@@ -292,6 +292,7 @@ security group için  rds hariç hepsini seçeriz.
 
 eval $(ssh-agent) ile nat-instance üzerinden deneme instance'a bağlanırız ve private subnete bağlandığımızı görürüz.
 
+
 userdatayı test etmek için: 
 deneme bir ubuntu instance ayağa kaldırırız, capstone vpc ve 1a public subnet seçilir. buna role s3-ssm rolü atanır ve userdata eklenmeden ayağa kaldırılır.
 bu instance'a direkt connect ile bağlanırız.

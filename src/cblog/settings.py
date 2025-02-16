@@ -82,12 +82,30 @@ WSGI_APPLICATION = 'cblog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+def get_ssm_parameters():
+    ssm = boto3.client('ssm', region_name='us-east-1')
+    
+    #AWS SSM Parameter define
+    username_param = ssm.get_parameter(Name="/aydin/capstone/username", WithDecryption=True)
+    password_param = ssm.get_parameter(Name="/aydin/capstone/password", WithDecryption=True)
+
+    #Parameter retrieve
+    username = username_param['Parameter']['Value']
+    password = password_param['Parameter']['Value']
+
+    return username, password
+
+#SSM put
+db_username, db_password = get_ssm_parameters()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'database1', # database name in RDS is written here
-        'USER': 'admin', # database master username in RDS is written here
-        'PASSWORD': config('PASSWORD'),
+        #'USER': 'admin', # database master username in RDS is written here
+        'USER': db_username, # database master username in RDS is written here
+        #'PASSWORD': config('PASSWORD'),
+        'PASSWORD': db_password,
         'HOST': 'capstone-rds.chaew8ekeb35.us-east-1.rds.amazonaws.com',  # database endpoint is written here
         'PORT': '3306' # database port is written here
     }
