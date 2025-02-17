@@ -729,6 +729,7 @@ yeterli değil, ayağa kalkması için çok kısa süre.
 -->
 
 
+
 - Click deploy and all set. go to the website and add a new post with photo, then control if their record is written on DynamoDB (icine tiklayinca Explore Tables bölümüne tiklayinca eklenen dosyayi goruruz).
 
 - WE ALL SET
