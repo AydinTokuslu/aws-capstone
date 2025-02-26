@@ -245,6 +245,7 @@ Configure Security Group
     - Select an existing security group: aws_capstone_NAT_Sec_Group
 Review and select our own pem key
 ```
+<!--
  ######################################
  !!!IMPORTANT!!!
 
@@ -261,7 +262,7 @@ nat-instance olarak başkalarının paketlerini taşıyacağı için kendi paket
 instance ===> actions ===> Networking ===> Change Source / destination check ===> Stop'u tikleriz.
 
 ######################################
-
+-->
 
 !!!IMPORTANT!!!
 
