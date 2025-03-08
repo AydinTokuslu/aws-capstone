@@ -296,7 +296,7 @@ eval $(ssh-agent) ile nat-instance üzerinden deneme instance'a bağlanırız ve
 private instance içinde curl www.google.com yapıp, içerik gelip gelmediğini görürüz. geliyırsa çalışıyordur.
 
 
-2nci test olarak bir public ubuntu instance ayağa kaldırırız ki diğer servislere bağlanıp bağlanamadığımızı görürürüz. 
+-- 2nci test olarak bir public ubuntu instance ayağa kaldırırız ki diğer servislere bağlanıp bağlanamadığımızı görürürüz. 
 private ile boş yere vakit kaybedip nat-instance ile bağlanmamak için, direkt public subnet üzerinde deneme instance ayağa kaldırılır.
 userdatayı test etmek için: 
 deneme bir ubuntu instance ayağa kaldırırız, capstone vpc ve 1a public subnet seçilir. buna role s3-ssm rolü atanır ve userdata eklenmeden ayağa kaldırılır.
